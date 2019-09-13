@@ -36,18 +36,15 @@
                             <?php foreach ($Clientes as $Cliente) : ?>
                             <?php if ($Usuario->IdUser == $Cliente->ClientId) : ?>
                             <tr>
-                                <td class="text-center"><?php echo $Usuario->IdUser; ?></td>
+                                <td class="text-center"><?php echo $Cliente->Id; ?></td>
                                 <td class="font-w600"><?php echo $Usuario->FullName; ?></td>
                                 <td class="d-none d-sm-table-cell"><?php echo $Usuario->Email; ?></td>
                                 <td class="d-none d-sm-table-cell"><?php echo $Usuario->CellPhoneNumber; ?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Usuario->IdUser; ?>"><span class="fa fa-eye"></span></button>
-                                        <?php if ($Cliente->State == 1) : ?>
-                                        <a href="<?php echo base_url() ?>mantenimiento/Usuarios/Remove/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                        <?php else : ?>
-                                        <a href="<?php echo base_url() ?>mantenimiento/Usuarios/delete/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                        <?php endif; ?>
+                                        <a href="<?php echo base_url() ?>mantenimiento/Clientes/OperationsDone/<?php echo $Usuario->IdUser; ?>" class="btn btn-success btn-success"><span class="fa fa-exchange"></span></a>
+                                        <a href="<?php echo base_url() ?>mantenimiento/Clientes/RemoveClient/<?php echo $Cliente->Id; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
                                     </div>
                                 </td>
                             </tr>

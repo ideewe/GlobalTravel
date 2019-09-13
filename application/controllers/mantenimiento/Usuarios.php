@@ -105,53 +105,52 @@ class Usuarios extends CI_Controller
                 $CivilStatusId = $this->input->post("CivilStatusId");
                 $CellPhoneNumber = $this->input->post("CellPhoneNumber");
                 $rol = $this->input->post("rol");
+                $var = 0;
                 $this->form_validation->set_rules('password', 'Contraseña', 'required');
                 $this->form_validation->set_rules('confirmpassword', 'Confirmar Contraseña', 'required|matches[password]');
 
-                if ($this->form_validation->run()) {
-                        
-                }
+                if ($this->form_validation->run()) { }
 
                 if (empty($_POST['password']) and empty($_POST['confirmpassword'])) {
                         $pass = $this->input->post("RealPassword");
                 } elseif (empty($_POST['password']) or empty($_POST['confirmpassword'])) {
-                        $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
-                        if ($this->input->post("Controller") == 1) {
-                                $this->Profile($id);
-                        } else {
-                                $this->edit($id);
-                        }
-                } elseif ($password != $confirmpassword) {
                         $this->session->set_flashdata("error", "Las contraseñas no coinciden");
-                        if ($this->input->post("Controller") == 1) {
-                                $this->Profile($id);
-                        } else {
-                                $this->edit($id);
-                        }
+                        $pass = $this->input->post("RealPassword");
+                        $var = 1;
+                } elseif ($password != $confirmpassword) {
+                        $var = 1;
+                        $this->session->set_flashdata("error", "Las contraseñas no coinciden");
                 } else {
                         $pass = sha1($password);
                 }
-                $data = array(
-                        'FullName' => $newname,
-                        'Username' => $username,
-                        'IdNumber' => $identity,
-                        'Email' => $email,
-                        'GenderId' => $GenderId,
-                        'CivilStatusId' => $CivilStatusId,
-                        'CellPhoneNumber' => $CellPhoneNumber,
-                        'rol_id' => $rol,
-                        'password' => $pass
-                );
-
-                if ($this->Registro_model->update($id, $data)) {
-                        $this->session->set_flashdata("update", "Se actualizo la informacion del usuario");
-                        if ($this->input->post("Controller") == 1) {
-                                $this->Profile($id);
+                if ($var == 0) {
+                        $data = array(
+                                'FullName' => $newname,
+                                'Username' => $username,
+                                'IdNumber' => $identity,
+                                'Email' => $email,
+                                'GenderId' => $GenderId,
+                                'CivilStatusId' => $CivilStatusId,
+                                'CellPhoneNumber' => $CellPhoneNumber,
+                                'rol_id' => $rol,
+                                'password' => $pass
+                        );
+                        if ($this->Registro_model->update($id, $data)) {
+                                $this->session->set_flashdata("update", "Se actualizo la informacion del usuario");
+                                if ($this->input->post("Controller") == 1) {
+                                        $this->Profile($id);
+                                } else {
+                                        redirect(base_url() . "mantenimiento/usuarios");
+                                }
                         } else {
-                                redirect(base_url() . "mantenimiento/usuarios");
+                                $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
+                                if ($this->input->post("Controller") == 1) {
+                                        $this->Profile($id);
+                                } else {
+                                        $this->edit($id);
+                                }
                         }
                 } else {
-                        $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
                         if ($this->input->post("Controller") == 1) {
                                 $this->Profile($id);
                         } else {

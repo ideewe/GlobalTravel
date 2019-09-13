@@ -8,17 +8,53 @@ class Clientes extends CI_Controller
     {
         parent::__construct();
         $this->load->model("Registro_model");
+        $this->load->model("Packages_model");
     }
 
 
     public function index()
     {
-        $data = array('Usuarios' => $this->Registro_model->getClientes(),);
+        $data = array('Usuarios' => $this->Registro_model->getClientes());
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');
         $this->load->view('layouts/header');
         $this->load->view('admin/Clientes/list_getClients', $data);
         $this->load->view('layouts/footer');
+    }
+
+    public function addOperation($id)
+    {
+        $data = array(
+            'Paquetes' => $this->Packages_model->getPackages(),
+            'Usuario' => $this->Registro_model->getUser($id),
+            'id' => $id
+        );
+        $this->load->view('layouts/aside');
+        $this->load->view('layouts/navsidebar');
+        $this->load->view('layouts/header');
+        $this->load->view('admin/Packages/PackageList', $data);
+        $this->load->view('layouts/footer');
+    }
+
+    public function storeOperation($PackageId)
+    {
+        $SellerId = $this->session->userdata("id");
+        $Date = date("Y-m-d");
+
+        $data = array(
+            'ClientId' => 2,
+            'SellerId' => $SellerId,
+            'PackageId' => $PackageId,
+            'State' => 0,
+            'Date' => $Date
+        );
+        if ($this->Packages_model->saveOperation($data)) {
+            $this->session->set_flashdata("update", "Se guardo la informacion de la Venta");
+            $this->index();
+        } else {
+            $this->session->set_flashdata("error", "No se pudo guardar la informacion de la Venta");
+            $this->index();
+        }
     }
 
     public function Userlist()
@@ -55,12 +91,28 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    public function OperationsDone($Client)
+    {
+        $id = $this->session->userdata("id");
+        $data = array(
+            'Operaciones' => $this->Registro_model->getUserClient($id),
+            'Paquetes' => $this->Packages_model->getPackages(),
+            'Vendedor' => $id,
+            'Cliente' => $this->Registro_model->getUser($Client),
+        );
+        $this->load->view('layouts/aside');
+        $this->load->view('layouts/navsidebar');
+        $this->load->view('layouts/header');
+        $this->load->view('admin/clientes/listOperations', $data);
+        $this->load->view('layouts/footer');
+    }
+
     public function UserSellers()
     {
         $id = $this->session->userdata("id");
         $data = array(
             'Sellers' => $this->Registro_model->getUserSeller($id),
-            'Usuarios' => $this->Registro_model->getUsuarios()
+            'Usuarios' => $this->Registro_model->getClientes()
         );
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');
@@ -154,4 +206,12 @@ class Clientes extends CI_Controller
         $this->Registro_model->Remove($id);
         echo "mantenimiento/usuarios/Userlist";
     }
+
+    public function RemoveClient($id)
+    {
+        $data = array('State' => "1",);
+        $this->Registro_model->updateClient($id, $data);
+        echo "mantenimiento/usuarios/Userlist";
+    }
 }
+

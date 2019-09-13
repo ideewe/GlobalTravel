@@ -245,7 +245,7 @@
                                     </div>
                                     <br />
                                     <div class="col-6">
-                                        <label>Su direccion</label>
+                                        <label>Ciudad</label>
                                         <div class="input-group ">
                                             <input type="text" class="form-control" id="city" name="city" value="<?php echo $Direccion->City ?>">
                                             <div class="input-group-append">
@@ -464,7 +464,7 @@
             <?php endif; ?>
         </div>
         <div class="tab-pane fade fade-left" id="Operaciones" role="tabpanel">
-            <?php if (!empty($MiPaquete)) : ?>
+            <?php if (!empty($MisPaquetes)) : ?>
                 <div class="block-content block-content-full">
                     <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
                         <thead>

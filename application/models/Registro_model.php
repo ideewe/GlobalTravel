@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Registro_model extends CI_Model
 {
 
+	//Methods for users in general
 	public function save($data)
 	{
 		return $this->db->insert("user", $data);
@@ -27,11 +28,37 @@ class Registro_model extends CI_Model
         return $resultado->result();
 	}
 
+	public function getUserDelete()
+    {
+        $this->db->where("State", "1");
+        $resultado = $this->db->get("user");
+        return $resultado->result();
+    }
+
+	public function update($id, $data)
+	{
+		$this->db->where("IdUser", $id);
+		return $this->db->update("user", $data);
+	}
+
+	public function Remove($id)
+	{
+		$this->db->where("IdUser", $id);
+		return $this->db->delete("user");
+	}
+
+	//Methods for Clients 
 	public function getClientes()
     {
         $this->db->where("rol_id", "4");
         $resultado = $this->db->get("user");
         return $resultado->result();
+	}
+
+	public function updateClient($id, $data)
+	{
+		$this->db->where("Id", $id);
+		return $this->db->update("clientoperation", $data);
 	}
 
 	public function getSellers()
@@ -55,22 +82,5 @@ class Registro_model extends CI_Model
         return $resultado->result();
     }
 	
-	public function getUserDelete()
-    {
-        $this->db->where("State", "1");
-        $resultado = $this->db->get("user");
-        return $resultado->result();
-    }
-
-	public function update($id, $data)
-	{
-		$this->db->where("IdUser", $id);
-		return $this->db->update("user", $data);
-	}
-
-	public function Remove($id)
-	{
-		$this->db->where("IdUser", $id);
-		return $this->db->delete("user");
-	}
+	
 }

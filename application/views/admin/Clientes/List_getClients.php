@@ -47,7 +47,7 @@
                                             <td>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Usuario->IdUser; ?>"><span class="fa fa-eye"></span></button>
-                                                        <a href="<?php echo base_url() ?>mantenimiento/Usuarios/state/<?php echo $Usuario->IdUser; ?>" class="btn btn-success btn-remove"><span class="fa fa-plus"></span></a>
+                                                    <a href="<?php echo base_url() ?>mantenimiento/Clientes/addOperation/<?php echo $Usuario->IdUser; ?>" class="btn btn-primary"><span class="fa fa-plus"></span></a>
                                                 </div>
                                             </td>
                                         </tr>
