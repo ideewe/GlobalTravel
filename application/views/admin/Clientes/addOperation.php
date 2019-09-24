@@ -11,12 +11,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form action="<?php echo base_url(); ?>mantenimiento/Clientes/storeOperation" method="post">
-                                <h3> Su Informacion de Localidad</h3>
+                                <h3> Informacion de la Operacion</h3>
+                                <input type="hidden" name="clientid" value="<?php echo $Usuario->IdUser; ?>">
                                 <div class="form-group row">
                                     <div class="col-6">
-                                        <label>Su direccion</label>
+                                        <label>Vendedor</label>
                                         <div class="input-group ">
-                                            <input type="text" class="form-control" id="address" name="address" placeholder="Su direccion..">
+                                            <input type="text" class="form-control" id="seller" name="seller" placeholder="<?php echo $this->session->userdata("nombre"); ?>">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-user"></i>
@@ -26,9 +27,9 @@
                                     </div>
                                     <br />
                                     <div class="col-6">
-                                        <label>Su direccion</label>
+                                        <label>Cliente</label>
                                         <div class="input-group ">
-                                            <input type="text" class="form-control" id="city" name="city" placeholder="Ciudad..">
+                                            <input type="text" class="form-control" id="client" name="client" placeholder="Cliente..." value="<?php echo $Usuario->FullName; ?>">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-id-card-o"></i>
@@ -39,9 +40,9 @@
                                 </div>
                                 <div class="form-group row ">
                                     <div class="col-6">
-                                        <label>Departamento</label>
+                                        <label>Fecha</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="department" name="department" placeholder="Departamento..">
+                                            <input type="text" class="form-control" id="date" name="date" placeholder="<?php echo $Date = date("Y-m-d"); ?>" value="<?php echo $Date = date("Y-m-d"); ?>">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-user-circle-o"></i>
@@ -49,45 +50,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h3>Numeros Telefonicos del Cliente</h3>
-                                <div class="form-group row ">
                                     <div class="col-6">
-                                        <label>Su Telefono de Casa</label>
-                                        <div class="input-group ">
-                                            <input type="text" class="form-control" id="homephone" name="homephone" placeholder="Telefono de casa..">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fa fa-envelope"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <label>Su Telefono de Oficina</label>
-                                        <div class="input-group ">
-                                            <input type="text" class="form-control" id="officephone" name="officephone" placeholder="Telefono de Oficina..">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fa fa-phone"></i>
-                                                </span>
-                                            </div>
+                                        <label>Paquete</label>
+                                        <div class="col-6">
+                                            <select class="form-control " id="paquete" name="paquete">
+                                                <?php foreach ($Paquetes as $Paquete) : ?>
+                                                    <option value="<?php echo $Paquete->Id;?>"><?php echo $Paquete->Name;?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" form-group row ">
-                                    <div class="col-6">
-                                        <label>Otro Telefono</label>
-                                        <div class="input-group ">
-                                            <input type="text" class="form-control" id="otherphone" name="otherphone" placeholder="otro telefono..">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fa fa-phone"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <br />
                                 <div class="form-group row">
                                     <div class="col-4">

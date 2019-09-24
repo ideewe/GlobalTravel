@@ -32,24 +32,40 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');
         $this->load->view('layouts/header');
-        $this->load->view('admin/Packages/PackageList', $data);
+        $this->load->view('admin/Clientes/addOperation', $data);
         $this->load->view('layouts/footer');
     }
 
-    public function storeOperation($PackageId)
+    public function storeOperation()
     {
         $SellerId = $this->session->userdata("id");
         $Date = date("Y-m-d");
+        $ClientId = $this->input->post("clientid");
+        $PackageId = $this->input->post("paquete");
 
         $data = array(
-            'ClientId' => 2,
+            'ClientId' => $ClientId,
             'SellerId' => $SellerId,
             'PackageId' => $PackageId,
             'State' => 0,
             'Date' => $Date
         );
+
+        $cliente = array(
+            'ClientId' => $ClientId,
+            'SellerId' => $SellerId,
+            'State' => 0
+        );
         if ($this->Packages_model->saveOperation($data)) {
-            $this->session->set_flashdata("update", "Se guardo la informacion de la Venta");
+            if($this->VerifyClients($ClientId,$SellerId)==false){
+                if ($this->Registro_model->SaveSellersClient($cliente)) {
+                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta y su Cliente");
+                }else{
+                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta pero no la del cliente");
+                }
+            }else{
+                $this->session->set_flashdata("update", "Se guardo la informacion de la Venta");
+            }
             $this->index();
         } else {
             $this->session->set_flashdata("error", "No se pudo guardar la informacion de la Venta");
@@ -89,6 +105,17 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/header');
         $this->load->view('admin/clientes/list_clients', $data);
         $this->load->view('layouts/footer');
+    }
+
+    public function VerifyClients($client, $seller){
+        $Clients = $this->Registro_model->getUserClient($seller);
+        foreach ($Clients as $Client ) {
+            if ($Client->ClientId == $client) {
+                return true;
+                break;
+            }
+        }
+        return false;
     }
 
     public function OperationsDone($Client)

@@ -92,7 +92,7 @@
                         <?php endif; ?>
                         <?php if ($this->session->userdata("rol_id") == "3") : ?>
                         <li>
-                            <a href="<?php echo base_url() ?>mantenimiento/clientes">Añadir Clientes</a>
+                            <a href="<?php echo base_url() ?>mantenimiento/clientes">Realizar una venta</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url() ?>mantenimiento/clientes/UserClients">Mis Clientes</a>
