@@ -5,14 +5,14 @@
         <div class="content">
             <div>
                 <?php if ($this->session->flashdata("error")) : ?>
-                <div class="alert alert-danger">
-                    <p><?php echo $this->session->flashdata("error") ?></p>
-                </div>
+                    <div class="alert alert-danger">
+                        <p><?php echo $this->session->flashdata("error") ?></p>
+                    </div>
                 <?php endif; ?>
                 <?php if ($this->session->flashdata("update")) : ?>
-                <div class="alert alert-success">
-                    <p><?php echo $this->session->flashdata("update") ?></p>
-                </div>
+                    <div class="alert alert-success">
+                        <p><?php echo $this->session->flashdata("update") ?></p>
+                    </div>
                 <?php endif; ?>
             </div><br />
             <div class="block">
@@ -31,29 +31,30 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php if (!empty($Usuarios) or !empty($Sellers)) : ?>
-                            <?php foreach ($Usuarios as $Usuario) : ?>
-                            <?php foreach ($Sellers as $Seller) : ?>
-                            <?php if ($Usuario->IdUser == $Seller->SellerId) : ?>
-                            <tr>
-                                <td class="text-center"><?php echo $Usuario->IdUser; ?></td>
-                                <td class="font-w600"><?php echo $Usuario->FullName; ?></td>
-                                <td class="d-none d-sm-table-cell"><?php echo $Usuario->Email; ?></td>
-                                <td class="d-none d-sm-table-cell"><?php echo $Usuario->CellPhoneNumber; ?></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Usuario->IdUser; ?>"><span class="fa fa-eye"></span></button>
-                                        <?php if ($Seller->State == 1) : ?>
-                                        <a href="<?php echo base_url() ?>mantenimiento/Usuarios/Remove/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                        <?php else : ?>
-                                        <a href="<?php echo base_url() ?>mantenimiento/Usuarios/delete/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
+                                <?php foreach ($Usuarios as $Usuario) : ?>
+                                    <?php foreach ($Sellers as $Seller) : ?>
+                                        <?php if ($Usuario->IdUser == $Seller->SellerId) : ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $Seller->Id; ?></td>
+                                                <td class="font-w600"><?php echo $Usuario->FullName; ?></td>
+                                                <td class="d-none d-sm-table-cell"><?php echo $Usuario->Email; ?></td>
+                                                <td class="d-none d-sm-table-cell"><?php echo $Usuario->CellPhoneNumber; ?></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Usuario->IdUser; ?>"><span class="fa fa-eye"></span></button>
+                                                        <?php if ($Seller->State == 1) : ?>
+                                                            <a href="<?php echo base_url() ?>mantenimiento/Usuarios/Remove/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
+                                                        <?php else : ?>
+                                                            <a href="<?php echo base_url() ?>mantenimiento/Usuarios/delete/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                            <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>

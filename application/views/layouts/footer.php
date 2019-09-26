@@ -23,7 +23,7 @@
 <script src="<?php echo base_url(); ?>assets/js/pages/be_tables_datatables.min.js"></script>
 <script>
     jQuery(function() {
-        Codebase.helpers(['datepicker']);
+        Codebase.helpers(['datepicker','tags-inputs']);
     });
 </script>
 

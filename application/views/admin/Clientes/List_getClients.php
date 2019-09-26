@@ -33,7 +33,6 @@
                         <tbody>
                             <?php if (!empty($Usuarios)) : ?>
                                 <?php foreach ($Usuarios as $Usuario) : ?>
-                                    <?php if ($Usuario->rol_id == 4) : ?>
                                         <tr>
                                             <td class="text-center"><?php echo $Usuario->IdUser; ?></td>
                                             <td class="font-w600"><?php echo $Usuario->FullName; ?></td>
@@ -42,6 +41,8 @@
                                                 <span class="badge badge-success">
                                                     <?php if ($Usuario->rol_id == "4") {
                                                         echo "Cliente";
+                                                    }else{
+                                                        echo "Vendedor";
                                                     } ?></span>
                                             </td>
                                             <td>
@@ -51,7 +52,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>

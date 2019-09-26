@@ -83,7 +83,7 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
-    public function getClients()
+    public function getSellers()
     {
         $data = array('Usuarios' => $this->Registro_model->getSellers(),);
         $this->load->view('layouts/aside');
@@ -122,7 +122,7 @@ class Clientes extends CI_Controller
     {
         $id = $this->session->userdata("id");
         $data = array(
-            'Operaciones' => $this->Registro_model->getUserClient($id),
+            'Operaciones' => $this->Registro_model->getOperations($id),
             'Paquetes' => $this->Packages_model->getPackages(),
             'Vendedor' => $id,
             'Cliente' => $this->Registro_model->getUser($Client),
@@ -139,7 +139,7 @@ class Clientes extends CI_Controller
         $id = $this->session->userdata("id");
         $data = array(
             'Sellers' => $this->Registro_model->getUserSeller($id),
-            'Usuarios' => $this->Registro_model->getClientes()
+            'Usuarios' => $this->Registro_model->getSellers()
         );
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');

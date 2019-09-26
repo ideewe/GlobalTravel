@@ -60,20 +60,6 @@ class Usuarios extends CI_Controller
                 $this->load->view('layouts/footer');
         }
 
-        public function UserSellers()
-        {
-                $id = $this->session->userdata("id");
-                $data = array(
-                        'Sellers' => $this->Registro_model->getUserSeller($id),
-                        'Usuarios' => $this->Registro_model->getUsuarios()
-                );
-                $this->load->view('layouts/aside');
-                $this->load->view('layouts/navsidebar');
-                $this->load->view('layouts/header');
-                $this->load->view('admin/clientes/list_sellers', $data);
-                $this->load->view('layouts/footer');
-        }
-
         public function add()
         {
                 $this->load->view('layouts/aside');
@@ -216,6 +202,7 @@ class Usuarios extends CI_Controller
         {
                 $data = array('State' => "1",);
                 $this->Registro_model->update($id, $data);
+                $this->session->set_flashdata("update", "Se elimino el usuario");
                 echo "mantenimiento/usuarios";
         }
 
@@ -223,12 +210,14 @@ class Usuarios extends CI_Controller
         {
                 $data = array('State' => "0",);
                 $this->Registro_model->update($id, $data);
+                $this->session->set_flashdata("update", "Se agrego de nuevo al usuario");
                 echo "mantenimiento/usuarios/Userlist";
         }
 
         public function Remove($id)
         {
                 $this->Registro_model->Remove($id);
+                $this->session->set_flashdata("update", "Se removio permanentemente el usuario");
                 echo "mantenimiento/usuarios/Userlist";
         }
 

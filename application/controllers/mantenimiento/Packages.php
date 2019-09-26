@@ -32,6 +32,38 @@ class Packages extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    public function edit($id)
+    {
+        $data = array(
+            'Paquete' => $this->Packages_model->getPackage($id)
+        );
+        $this->load->view('layouts/aside');
+        $this->load->view('layouts/navsidebar');
+        $this->load->view('layouts/header');
+        $this->load->view('admin/Packages/editPackage', $data);
+        $this->load->view('layouts/footer');
+    }
+
+    public function updatepackage($id)
+    {
+        $name = $this->input->post("name");
+        $price = $this->input->post("price");
+        $observations = $this->input->post("observations");
+
+        $data = array(
+            'Name' => $name,
+            'Price' => $price,
+            'Observations' => $observations
+        );
+        if ($this->Packages_model->update($id, $data)) {
+            $this->session->set_flashdata("update", "Se actualizo la informacion del paquete");
+                redirect(base_url() . "mantenimiento/packages");
+        } else {
+            $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
+            $this->edit($id);
+        }
+    }
+
     public function MyPackages()
     {
         $id = $this->session->userdata("id");
@@ -61,5 +93,4 @@ class Packages extends CI_Controller
         $this->load->view('admin/Packages/MyPackageList', $data);
         $this->load->view('layouts/footer');
     }
-
 }

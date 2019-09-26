@@ -50,7 +50,6 @@
                                 <td class="d-none d-sm-table-cell"><?php echo $MiPaquete->Date; ?></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Paquete->Id; ?>"><span class="fa fa-eye"></span></button>
                                         <a href="<?php echo base_url() ?>#<?php echo $Paquete->Id; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
                                     </div>
                                 </td>
