@@ -14,6 +14,12 @@ class Packages_model extends CI_Model
 		return $this->db->insert("clientoperation", $data);
 	}
 
+	public function updateMyOperation($id, $data)
+	{
+		$this->db->where("Id", $id);
+		return $this->db->update("clientoperation", $data);
+	}
+
 	public function getPackage($id)
 	{
 		$this->db->where("Id", $id);

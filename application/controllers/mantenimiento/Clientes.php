@@ -36,6 +36,28 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    public function VerifySellers($client, $seller){
+        $Sellers = $this->Registro_model->getUserSeller($client);
+        foreach ($Sellers as $seller ) {
+            if ($seller->SellerId == $seller) {
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
+
+    public function VerifyClients($client, $seller){
+        $Clients = $this->Registro_model->getUserClient($seller);
+        foreach ($Clients as $Client ) {
+            if ($Client->ClientId == $client) {
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
+
     public function storeOperation()
     {
         $SellerId = $this->session->userdata("id");
@@ -61,10 +83,17 @@ class Clientes extends CI_Controller
                 if ($this->Registro_model->SaveSellersClient($cliente)) {
                     $this->session->set_flashdata("update", "Se guardo la informacion de la Venta y su Cliente");
                 }else{
-                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta pero no la del cliente");
+                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta pero no la del cliente/vendedor");
                 }
             }else{
                 $this->session->set_flashdata("update", "Se guardo la informacion de la Venta");
+            }
+            if ($this->VerifySellers($ClientId,$SellerId)==false) {
+                if ($this->Registro_model->SaveClientsSeller($cliente)) {
+                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta y su Cliente");
+                }else{
+                    $this->session->set_flashdata("update", "Se guardo la informacion de la Venta pero no la del cliente/vendedor");
+                }
             }
             $this->index();
         } else {
@@ -72,6 +101,8 @@ class Clientes extends CI_Controller
             $this->index();
         }
     }
+
+
 
     public function Userlist()
     {
@@ -89,7 +120,7 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');
         $this->load->view('layouts/header');
-        $this->load->view('admin/Clientes/list_getClients', $data);
+        $this->load->view('admin/Clientes/list_getSellers', $data);
         $this->load->view('layouts/footer');
     }
 
@@ -107,16 +138,7 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
-    public function VerifyClients($client, $seller){
-        $Clients = $this->Registro_model->getUserClient($seller);
-        foreach ($Clients as $Client ) {
-            if ($Client->ClientId == $client) {
-                return true;
-                break;
-            }
-        }
-        return false;
-    }
+    
 
     public function OperationsDone($Client)
     {

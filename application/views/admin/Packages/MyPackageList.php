@@ -5,14 +5,14 @@
         <div class="content">
             <div>
                 <?php if ($this->session->flashdata("error")) : ?>
-                <div class="alert alert-danger">
-                    <p><?php echo $this->session->flashdata("error") ?></p>
-                </div>
+                    <div class="alert alert-danger">
+                        <p><?php echo $this->session->flashdata("error") ?></p>
+                    </div>
                 <?php endif; ?>
                 <?php if ($this->session->flashdata("update")) : ?>
-                <div class="alert alert-success">
-                    <p><?php echo $this->session->flashdata("update") ?></p>
-                </div>
+                    <div class="alert alert-success">
+                        <p><?php echo $this->session->flashdata("update") ?></p>
+                    </div>
                 <?php endif; ?>
                 <div class="col-md-12>">
                     <a href="<?php echo base_url(); ?>mantenimiento/address" class="btn btn-primary btn-flat"><span class="fa fa-plus">
@@ -37,28 +37,30 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($Paquetes)) : ?>
-                            <?php foreach ($MisPaquetes as $MiPaquete) : ?>
-                            <?php foreach ($Paquetes as $Paquete) : ?>
-                            <?php if ($MiPaquete->PackageId == $Paquete->Id) : ?>
-                            <?php foreach ($Vendedores as $Vendedor) : ?>
-                            <?php if ($MiPaquete->SellerId == $Vendedor->IdUser) : ?>
-                            <tr>
-                                <td class="text-center"><?php echo $MiPaquete->Id; ?></td>
-                                <td class="font-w600"><?php echo $Paquete->Name; ?></td>
-                                <td class="font-w600"><?php echo $Vendedor->FullName; ?></td>
-                                <td class="d-none d-sm-table-cell"><?php echo $Paquete->Price; ?></td>
-                                <td class="d-none d-sm-table-cell"><?php echo $MiPaquete->Date; ?></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="<?php echo base_url() ?>#<?php echo $Paquete->Id; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                            <?php endforeach; ?>
+                                <?php foreach ($MisPaquetes as $MiPaquete) : ?>
+                                    <?php if ($MiPaquete->State == 0) : ?>
+                                        <?php foreach ($Paquetes as $Paquete) : ?>
+                                            <?php if ($MiPaquete->PackageId == $Paquete->Id) : ?>
+                                                <?php foreach ($Vendedores as $Vendedor) : ?>
+                                                    <?php if ($MiPaquete->SellerId == $Vendedor->IdUser) : ?>
+                                                        <tr>
+                                                            <td class="text-center"><?php echo $MiPaquete->Id; ?></td>
+                                                            <td class="font-w600"><?php echo $Paquete->Name; ?></td>
+                                                            <td class="font-w600"><?php echo $Vendedor->FullName; ?></td>
+                                                            <td class="d-none d-sm-table-cell"><?php echo $Paquete->Price; ?></td>
+                                                            <td class="d-none d-sm-table-cell"><?php echo $MiPaquete->Date; ?></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a href="<?php echo base_url() ?>mantenimiento/Packages/CancelOrder/<?php echo $MiPaquete->Id; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>

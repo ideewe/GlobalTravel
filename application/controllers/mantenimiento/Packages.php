@@ -57,7 +57,7 @@ class Packages extends CI_Controller
         );
         if ($this->Packages_model->update($id, $data)) {
             $this->session->set_flashdata("update", "Se actualizo la informacion del paquete");
-                redirect(base_url() . "mantenimiento/packages");
+            redirect(base_url() . "mantenimiento/packages");
         } else {
             $this->session->set_flashdata("error", "No se pudo actualizar la informacion");
             $this->edit($id);
@@ -77,6 +77,18 @@ class Packages extends CI_Controller
         $this->load->view('layouts/header');
         $this->load->view('admin/Packages/MyPackageList', $data);
         $this->load->view('layouts/footer');
+    }
+
+    public function CancelOrder($PackageId)
+    {
+        $data = array('State' => "1");
+        if ($this->Packages_model->updateMyOperation($PackageId, $data)) {
+            $this->session->set_flashdata("update", "Se cancelo su orden");
+            echo "mantenimiento/packages/MyPackages";
+        } else {
+            $this->session->set_flashdata("error", "No se pudo cancelar su orden");
+            echo "mantenimiento/packages/MyPackages";
+        }
     }
 
     public function MySelledPackages()
