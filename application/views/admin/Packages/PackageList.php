@@ -3,6 +3,10 @@
     <main id="main-container">
         <!-- Page Content -->
         <div class="content">
+            <div class="col-md-12>">
+                <a href="<?php echo base_url(); ?>mantenimiento/Packages/add" class="btn btn-primary btn-flat"><span class="fa fa-plus">
+                    </span> Agregar Paquete Nuevo</a>
+            </div>
             <div class="block">
                 <div class="block-header block-header-default">
                     <h3 class="block-title"> Paquetes</h3>
@@ -15,7 +19,7 @@
                                 <th class="text-center" style="width: 50px;">#</th>
                                 <th>Nombre</th>
                                 <th class="d-none d-sm-table-cell">Precio</th>
-                                <th class="d-none d-sm-table-cell" >Observaciones</th>
+                                <th class="d-none d-sm-table-cell">Observaciones</th>
                                 <th class="text-center" style="width: 100px;">Acciones</th>
                             </tr>
                         </thead>
@@ -36,7 +40,7 @@
                                                     </div>
                                                 </div>
                                             <?php else : ?>
-                                            Sin datos que mostrar
+                                                Sin datos que mostrar
                                             <?php endif; ?>
                                         </td>
                                         <td>

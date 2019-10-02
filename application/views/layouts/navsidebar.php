@@ -103,9 +103,6 @@
                             <a href="<?php echo base_url() ?>mantenimiento/clientes/UserSellers">Mis Vendedores</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url() ?>mantenimiento/clientes/getSellers">Adquirir Vendedores</a>
-                        </li>
-                        <li>
                             <a href="<?php echo base_url() ?>mantenimiento/Packages/MyPackages">Mis Paquetes</a>
                         </li>
                         <?php endif; ?>

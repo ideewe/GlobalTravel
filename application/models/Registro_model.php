@@ -82,6 +82,13 @@ class Registro_model extends CI_Model
         return $resultado->result();
 	}
 
+	public function ClientgetOperations($id)
+    {
+        $this->db->where("ClientId", $id);
+        $resultado = $this->db->get("clientoperation");
+        return $resultado->result();
+	}
+
 	public function SaveSellersClient($data)
     {
         return $this->db->insert("sellerclients", $data);

@@ -114,16 +114,6 @@ class Clientes extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
-    public function getSellers()
-    {
-        $data = array('Usuarios' => $this->Registro_model->getSellers(),);
-        $this->load->view('layouts/aside');
-        $this->load->view('layouts/navsidebar');
-        $this->load->view('layouts/header');
-        $this->load->view('admin/Clientes/list_getSellers', $data);
-        $this->load->view('layouts/footer');
-    }
-
     public function UserClients()
     {
         $id = $this->session->userdata("id");
@@ -148,6 +138,24 @@ class Clientes extends CI_Controller
             'Paquetes' => $this->Packages_model->getPackages(),
             'Vendedor' => $id,
             'Cliente' => $this->Registro_model->getUser($Client),
+        );
+        $this->load->view('layouts/aside');
+        $this->load->view('layouts/navsidebar');
+        $this->load->view('layouts/header');
+        $this->load->view('admin/clientes/listOperations', $data);
+        $this->load->view('layouts/footer');
+    }
+
+    public function OperationsAcquired($Seller)
+    {
+        $id = $this->session->userdata("id");
+        $Seller2 = $this->Registro_model->getUser($Seller);
+        $data = array(
+            'Operaciones' => $this->Registro_model->ClientgetOperations($id),
+            'Paquetes' => $this->Packages_model->getPackages(),
+            'Vendedor' => $Seller,
+            'Name' => $Seller2,
+            'Cliente' => $this->Registro_model->getUser($id),
         );
         $this->load->view('layouts/aside');
         $this->load->view('layouts/navsidebar');

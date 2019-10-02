@@ -6,7 +6,11 @@
 
             <div class="block">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title"> Operaciones realizadas con <?php echo $Cliente->FullName; ?></h3>
+                    <?php if ($this->session->userdata("rol_id") == 4) : ?>
+                        <h3 class="block-title"> Operaciones realizadas con <?php echo $Name->FullName; ?></h3>
+                    <?php elseif ($this->session->userdata("rol_id") == 3) : ?>
+                        <h3 class="block-title"> Operaciones realizadas con <?php echo $Cliente->FullName; ?></h3>
+                    <?php endif; ?>
                 </div>
                 <div class="block-content block-content-full">
                     <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
@@ -52,8 +56,14 @@
                 </div>
             </div>
             <div class="col-md-12>">
-                <a href="<?php echo base_url(); ?>mantenimiento/clientes/UserClients" class="btn btn-primary btn-flat"><span class="fa fa-arrow-left">
-                    </span> Volver</a>
+                <?php if ($this->session->userdata("rol_id") == 4) : ?>
+                    <a href="<?php echo base_url(); ?>mantenimiento/clientes/UserSellers" class="btn btn-primary btn-flat"><span class="fa fa-arrow-left">
+                        </span> Volver</a>
+                <?php elseif ($this->session->userdata("rol_id") == 3) : ?>
+                    <a href="<?php echo base_url(); ?>mantenimiento/clientes/UserClients" class="btn btn-primary btn-flat"><span class="fa fa-arrow-left">
+                        </span> Volver</a>
+                <?php endif; ?>
+
             </div>
         </div>
         <!-- END Page Content -->

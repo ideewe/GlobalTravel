@@ -44,11 +44,7 @@
                                                 <td>
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-info btn-view" data-toggle="modal" data-target="#modal-popin" value="<?php echo $Usuario->IdUser; ?>"><span class="fa fa-eye"></span></button>
-                                                        <?php if ($Seller->State == 1) : ?>
-                                                            <a href="<?php echo base_url() ?>mantenimiento/Usuarios/Remove/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                                        <?php else : ?>
-                                                            <a href="<?php echo base_url() ?>mantenimiento/Usuarios/delete/<?php echo $Usuario->IdUser; ?>" class="btn btn-danger btn-remove"><span class="fa fa-remove"></span></a>
-                                                        <?php endif; ?>
+                                                        <a href="<?php echo base_url() ?>mantenimiento/Clientes/OperationsAcquired/<?php echo $Usuario->IdUser; ?>" class="btn btn-success btn-success"><span class="fa fa-exchange"></span></a>
                                                     </div>
                                                 </td>
                                             </tr>
